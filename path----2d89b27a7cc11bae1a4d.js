@@ -1,0 +1,2 @@
+webpackJsonp([60335399758886],{102:function(t,e){t.exports={data:{site:{siteMetadata:{title:"Kontext",subtitle:"Interaktionen, zwischen Text und Leser"}}},layoutContext:{}}}});
+//# sourceMappingURL=path----2d89b27a7cc11bae1a4d.js.map
