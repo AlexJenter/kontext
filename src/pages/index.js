@@ -1,13 +1,44 @@
 import React from 'react'
-import Link from 'gatsby-link'
 
-const IndexPage = () => (
+const logPipe = a => {
+  console.log(a);
+  return a;
+}
+
+const Section = ({ frontmatter, html }) => (
   <div>
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <Link to="/page-2/">Go to page 2</Link>
+    <h2>{frontmatter.title}</h2>
+    <div dangerouslySetInnerHTML={{ __html: html }}/>
   </div>
 )
 
-export default IndexPage
+export default ({ data }) => {
+  const sections = data.allMarkdownRemark.edges
+  .map(e => e.node)
+  .map(logPipe)
+
+  return (
+    <div>
+      {sections.map(s => <Section {...s} />)}
+    </div>
+  )
+}
+
+export const indexQuery = graphql`
+query IndexQuery {
+  allMarkdownRemark (
+    filter:{ frontmatter: {front: {ne: 0}}}
+    sort : { fields: [frontmatter___front], order: ASC }
+  ) {
+    edges {
+      node {
+        id
+        frontmatter {
+          title,
+        }
+        html
+      }
+    }
+  }
+}
+`;
